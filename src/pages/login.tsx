@@ -1,11 +1,13 @@
 import { ApolloError, gql, useMutation } from "@apollo/client";
 import React from "react";
+import Helmet from "react-helmet";
 import { useForm } from "react-hook-form";
 import FormError from "../components/form-error";
 import { LoginMutation, LoginMutationVariables } from "../__api__/types";
 import ruberLogo from "../images/eats_logo.svg";
 import Button from "../components/button";
 import { Link } from "react-router-dom";
+import { isLoggedInVar } from "../apollo";
 
 const LOGIN_MUTATION = gql`
   mutation login($loginInput: LoginInput!) {
@@ -38,6 +40,7 @@ const Login = () => {
     } = data;
     if (ok) {
       console.log(token);
+      isLoggedInVar(true);
     }
   };
 
@@ -63,6 +66,9 @@ const Login = () => {
   };
   return (
     <div className="h-screen flex items-center flex-col mt-10 lg:mt-28">
+      <Helmet>
+        <title>Login | Ruber Eats</title>
+      </Helmet>
       <div className="w-full max-w-screen-sm flex flex-col px-5 items-center">
         <img src={ruberLogo} className="w-52 mb-10" />
         <h4 className="w-full font-medium text-left text-3xl mb-5">
@@ -73,7 +79,11 @@ const Login = () => {
           className="grid gap-3 mt-5 mb-5 w-full"
         >
           <input
-            {...register("email", { required: "Email is required" })}
+            {...register("email", {
+              required: "Email is required",
+              pattern:
+                /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+            })}
             type="email"
             required
             placeholder="Email"
@@ -86,7 +96,7 @@ const Login = () => {
           <input
             {...register("password", {
               required: "Password is required",
-              minLength: 5,
+              minLength: 9,
             })}
             type="password"
             placeholder="Password"
@@ -96,8 +106,8 @@ const Login = () => {
           {errors.password?.message && (
             <FormError errorMessage={errors.password?.message} />
           )}
-          {errors.password?.type === "minLength" && (
-            <FormError errorMessage="Password must be more than 10 chars." />
+          {errors.password?.type === "pattern" && (
+            <FormError errorMessage={"Please enter a valid email"} />
           )}
           <Button canClick={isValid} loading={loading} actionText="Log In" />
           {loginMutationResult?.login.error && (

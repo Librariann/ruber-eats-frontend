@@ -19,10 +19,10 @@ const Header: React.FC<IHeaderProps> = () => {
         </div>
       )}
       <header className="py-4">
-        <div className="w-full px-5 xl:px-0 max-w-screen-xl mx-auto flex justify-between items-center">
+        <div className="w-full px-5 xl:px-0 max-w-screen-2xl mx-auto flex justify-between items-center">
           <img src={ruberLogo} className="w-36" alt="Ruber Eats" />
           <span className="text-xs">
-            <Link to="/my-profile">
+            <Link to="/edit-profile">
               <FontAwesomeIcon icon={faUser} className="text-xl" />
               {data?.me.email}
             </Link>

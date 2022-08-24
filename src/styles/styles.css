@@ -600,6 +600,14 @@ video {
   margin-top: 1.25rem;
 }
 
+.mt-52 {
+  margin-top: 13rem;
+}
+
+.mb-1 {
+  margin-bottom: 0.25rem;
+}
+
 .flex {
   display: flex;
 }
@@ -628,8 +636,8 @@ video {
   width: 13rem;
 }
 
-.max-w-screen-xl {
-  max-width: 1280px;
+.max-w-screen-2xl {
+  max-width: 1536px;
 }
 
 .max-w-screen-sm {
@@ -754,6 +762,11 @@ video {
 .text-lime-600 {
   --tw-text-opacity: 1;
   color: rgb(101 163 13 / var(--tw-text-opacity));
+}
+
+.text-gray-700 {
+  --tw-text-opacity: 1;
+  color: rgb(55 65 81 / var(--tw-text-opacity));
 }
 
 .transition-colors {

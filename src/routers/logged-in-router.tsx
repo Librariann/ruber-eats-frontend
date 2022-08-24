@@ -4,8 +4,12 @@ import Header from "../components/header";
 import useMe from "../hooks/useMe";
 import { NotFound } from "../pages/404";
 import Restaurants from "../pages/client/restaurants";
+import ConfirmEmail from "../pages/user/confirm-email";
 
-const ClientRouter = [<Route path="/" element={<Restaurants />} />];
+const ClientRouter = [
+  <Route key={1} path="/" element={<Restaurants />} />,
+  <Route key={2} path="confirm" element={<ConfirmEmail />} />,
+];
 
 export const LoggedInRouter = () => {
   const { data, loading, error } = useMe();

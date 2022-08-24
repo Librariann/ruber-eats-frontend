@@ -556,6 +556,11 @@ export type VerifyEmailOutput = {
   ok: Scalars['Boolean'];
 };
 
+export type MeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MeQuery = { __typename?: 'Query', me: { __typename?: 'User', id: number, email: string, role: UserRole, verified: boolean } };
+
 export type CreateAccountMutationMutationVariables = Exact<{
   createAccountInput: CreateAccountInput;
 }>;
@@ -570,7 +575,9 @@ export type LoginMutationVariables = Exact<{
 
 export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginOutput', ok: boolean, token?: string | null, error?: string | null } };
 
-export type MeQueryVariables = Exact<{ [key: string]: never; }>;
+export type VerifyEmailMutationVariables = Exact<{
+  input: VerifyEmailInput;
+}>;
 
 
-export type MeQuery = { __typename?: 'Query', me: { __typename?: 'User', id: number, email: string, role: UserRole, verified: boolean } };
+export type VerifyEmailMutation = { __typename?: 'Mutation', verifyEmail: { __typename?: 'VerifyEmailOutput', ok: boolean, error?: string | null } };

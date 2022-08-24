@@ -12,16 +12,24 @@ interface IHeaderProps {
 const Header: React.FC<IHeaderProps> = () => {
   const { data } = useMe(); //useMe hooks에 정보들은 cache에 저장되어 cache에서 데이터를 불러온다
   return (
-    <header className="py-4">
-      <div className="w-full px-5 xl:px-0 max-w-screen-xl mx-auto flex justify-between items-center">
-        <img src={ruberLogo} className="w-36" alt="Ruber Eats" />
-        <span className="text-xs">
-          <Link to="/my-profile">
-            <FontAwesomeIcon icon={faUser} className="text-xl" />
-          </Link>
-        </span>
-      </div>
-    </header>
+    <>
+      {!data?.me.verified && (
+        <div className="bg-red-500 py-3 text-center text-sm text-white">
+          <span>Please verify your email</span>
+        </div>
+      )}
+      <header className="py-4">
+        <div className="w-full px-5 xl:px-0 max-w-screen-xl mx-auto flex justify-between items-center">
+          <img src={ruberLogo} className="w-36" alt="Ruber Eats" />
+          <span className="text-xs">
+            <Link to="/my-profile">
+              <FontAwesomeIcon icon={faUser} className="text-xl" />
+              {data?.me.email}
+            </Link>
+          </span>
+        </div>
+      </header>
+    </>
   );
 };
 

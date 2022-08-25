@@ -1,5 +1,6 @@
 import { gql, useApolloClient, useMutation } from "@apollo/client";
 import React from "react";
+import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
 import Button from "../../components/button";
 import useMe from "../../hooks/useMe";
@@ -51,7 +52,7 @@ const EditProfile = () => {
         });
       }
 
-      //section1 - refetch()
+      //section2 - refetch() : backend에서 새로운 데이터를 내려받는다.. 속도는 당연히 두번째가 느림
       // const { data: userData, refetch } = useMe();
       // refetch()
     }
@@ -81,6 +82,9 @@ const EditProfile = () => {
   };
   return (
     <div className="mt-52 flex flex-col justify-center items-center">
+      <Helmet>
+        <title>Edit Profile | Ruber Eats</title>
+      </Helmet>
       <h4 className="font-semibold text-2xl mb-3">Edit Profile</h4>
       <form
         onSubmit={handleSubmit(onSubmit)}

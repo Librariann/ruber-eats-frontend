@@ -4,6 +4,7 @@ import Header from "../components/header";
 import useMe from "../hooks/useMe";
 import { NotFound } from "../pages/404";
 import Restaurants from "../pages/client/restaurants";
+import Search from "../pages/client/search";
 import ConfirmEmail from "../pages/user/confirm-email";
 import EditProfile from "../pages/user/edit-profile";
 
@@ -11,6 +12,7 @@ const ClientRouter = [
   <Route key={1} path="/" element={<Restaurants />} />,
   <Route key={2} path="/confirm" element={<ConfirmEmail />} />,
   <Route key={3} path="/edit-profile" element={<EditProfile />} />,
+  <Route key={4} path="/search" element={<Search />} />,
 ];
 
 export const LoggedInRouter = () => {

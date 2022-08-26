@@ -1,5 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import Restaurant from "../../components/restaurant";
 import {
   RestaurantsPageQuery,
@@ -39,6 +41,10 @@ const RESTAURANTS_QUERY = gql`
   }
 `;
 
+interface IFormProps {
+  search: string;
+}
+
 const Restaurants = () => {
   const [page, setPage] = useState(1);
   const { data, loading } = useQuery<
@@ -53,24 +59,40 @@ const Restaurants = () => {
   });
   const onNextPageClick = () => setPage((current) => current + 1);
   const onPrevPageClick = () => setPage((current) => current - 1);
+  const { register, handleSubmit, getValues } = useForm<IFormProps>();
+  const navigate = useNavigate();
+  const onSearchSubmit = () => {
+    console.log(getValues());
+    const search = getValues().search;
+    navigate({
+      pathname: "/search",
+      search: `?term=${search}`,
+    });
+  };
   return (
     <div>
-      <form className="bg-gray-800 w-full py-40 flex items-center justify-center">
+      <form
+        onSubmit={handleSubmit(onSearchSubmit)}
+        className="bg-gray-800 w-full py-40 flex items-center justify-center"
+      >
         <input
+          {...register("search", { required: true, min: 3 })}
           type="Search"
-          className="input rounded-md border-0 w-3/12"
+          className="input rounded-md border-0 w-3/4 md:w-3/12"
           placeholder="Search Restaurants..."
         />
       </form>
       {!loading && (
         <div className="px-5 mt-8 pb-20 max-w-screen-2xl mx-auto">
           <div className="flex justify-around max-w-sm mx-auto">
-            {data?.allCategories.categories?.map((category, index) => (
-              <div className="flex flex-col group items-center cursor-pointer">
+            {data?.allCategories.categories?.map((category) => (
+              <div
+                key={category.id}
+                className="flex flex-col group items-center cursor-pointer"
+              >
                 <div
                   className="w-16 h-16 bg-cover group-hover:bg-gray-200 rounded-full"
                   style={{ backgroundImage: `url(${category.coverImage})` }}
-                  key={index}
                 ></div>
                 <span className="mt-1 text-sm text-center font-bold">
                   {category.name}
@@ -78,10 +100,10 @@ const Restaurants = () => {
               </div>
             ))}
           </div>
-          <div className="mt-16 grid grid-cols-3 gap-x-5 gap-y-10">
-            {data?.restaurants.results?.map((restaurant, index) => (
+          <div className="mt-16 grid md:grid-cols-3 gap-x-5 gap-y-10">
+            {data?.restaurants.results?.map((restaurant) => (
               <Restaurant
-                key={index}
+                key={restaurant.id}
                 id={restaurant.id + ""}
                 coverImage={restaurant.coverImage}
                 name={restaurant.name}

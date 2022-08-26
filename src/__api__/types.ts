@@ -568,12 +568,12 @@ export type RestaurantsPageQueryVariables = Exact<{
 
 export type RestaurantsPageQuery = { __typename?: 'Query', allCategories: { __typename?: 'AllCategoriesOutput', ok: boolean, error?: string | null, categories?: Array<{ __typename?: 'Category', id: number, name: string, coverImage?: string | null, slug: string, restaurantCount: number }> | null }, restaurants: { __typename?: 'RestaurantsOutput', ok: boolean, error?: string | null, totalPages?: number | null, totalResults?: number | null, results?: Array<{ __typename?: 'Restaurant', id: number, name: string, coverImage: string, address: string, isPromoted: boolean, category?: { __typename?: 'Category', name: string } | null }> | null } };
 
-export type CreateAccountMutationMutationVariables = Exact<{
+export type CreateAccountMutationVariables = Exact<{
   createAccountInput: CreateAccountInput;
 }>;
 
 
-export type CreateAccountMutationMutation = { __typename?: 'Mutation', createAccount: { __typename?: 'CreateAccountOutput', ok: boolean, error?: string | null } };
+export type CreateAccountMutation = { __typename?: 'Mutation', createAccount: { __typename?: 'CreateAccountOutput', ok: boolean, error?: string | null } };
 
 export type LoginMutationVariables = Exact<{
   loginInput: LoginInput;

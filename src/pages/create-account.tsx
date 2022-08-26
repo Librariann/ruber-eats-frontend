@@ -4,8 +4,8 @@ import Helmet from "react-helmet";
 import { useForm } from "react-hook-form";
 import FormError from "../components/form-error";
 import {
-  CreateAccountMutationMutation,
-  CreateAccountMutationMutationVariables,
+  CreateAccountMutation,
+  CreateAccountMutationVariables,
   UserRole,
 } from "../__api__/types";
 import ruberLogo from "../images/eats_logo.svg";
@@ -13,7 +13,7 @@ import Button from "../components/button";
 import { Link, useNavigate } from "react-router-dom";
 
 const CREATE_ACCOUNT_MUTATION = gql`
-  mutation createAccountMutation($createAccountInput: CreateAccountInput!) {
+  mutation createAccount($createAccountInput: CreateAccountInput!) {
     createAccount(input: $createAccountInput) {
       ok
       error
@@ -31,9 +31,7 @@ const CreateAccount = () => {
   const {
     register,
     getValues,
-    watch,
     formState: { errors, isValid },
-    formState,
     handleSubmit,
   } = useForm<ICreateAccountForm>({
     mode: "onChange",
@@ -42,7 +40,7 @@ const CreateAccount = () => {
     },
   });
   const navigate = useNavigate();
-  const onCompleted = (data: CreateAccountMutationMutation) => {
+  const onCompleted = (data: CreateAccountMutation) => {
     const {
       createAccount: { ok },
     } = data;
@@ -55,12 +53,12 @@ const CreateAccount = () => {
   const [
     createAccountMutation,
     { loading, data: createAccountMutationResult },
-  ] = useMutation<
-    CreateAccountMutationMutation,
-    CreateAccountMutationMutationVariables
-  >(CREATE_ACCOUNT_MUTATION, {
-    onCompleted,
-  });
+  ] = useMutation<CreateAccountMutation, CreateAccountMutationVariables>(
+    CREATE_ACCOUNT_MUTATION,
+    {
+      onCompleted,
+    }
+  );
   const onSubmit = () => {
     if (!loading) {
       const { email, password, role } = getValues();

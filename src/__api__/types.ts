@@ -42,6 +42,7 @@ export type CategoryOutput = {
   category?: Maybe<Category>;
   error?: Maybe<Scalars['String']>;
   ok: Scalars['Boolean'];
+  restaurants?: Maybe<Restaurant>;
   totalPages?: Maybe<Scalars['Int']>;
   totalResults?: Maybe<Scalars['Int']>;
 };
@@ -558,10 +559,19 @@ export type VerifyEmailOutput = {
 
 export type RestaurantPartsFragment = { __typename?: 'Restaurant', id: number, name: string, coverImage: string, address: string, isPromoted: boolean, category?: { __typename?: 'Category', name: string } | null };
 
+export type CategoryPartsFragment = { __typename?: 'Category', id: number, name: string, coverImage?: string | null, slug: string, restaurantCount: number };
+
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type MeQuery = { __typename?: 'Query', me: { __typename?: 'User', id: number, email: string, role: UserRole, verified: boolean } };
+
+export type CategoryQueryVariables = Exact<{
+  input: CategoryInput;
+}>;
+
+
+export type CategoryQuery = { __typename?: 'Query', category: { __typename?: 'CategoryOutput', ok: boolean, error?: string | null, totalPages?: number | null, totalResults?: number | null, restaurants?: { __typename?: 'Restaurant', id: number, name: string, coverImage: string, address: string, isPromoted: boolean, category?: { __typename?: 'Category', name: string } | null } | null, category?: { __typename?: 'Category', id: number, name: string, coverImage?: string | null, slug: string, restaurantCount: number } | null } };
 
 export type RestaurantsPageQueryVariables = Exact<{
   input: RestaurantsInput;

@@ -2,7 +2,7 @@ import { gql, useApolloClient, useMutation } from "@apollo/client";
 import React, { useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { useLocation, useNavigate } from "react-router-dom";
-import useMe from "../../hooks/useMe";
+import { useMe } from "../../hooks/useMe";
 import {
   VerifyEmailMutation,
   VerifyEmailMutationVariables,

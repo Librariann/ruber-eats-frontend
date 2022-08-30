@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "../components/header";
-import useMe from "../hooks/useMe";
+import { useMe } from "../hooks/useMe";
 import { NotFound } from "../pages/404";
 import Category from "../pages/client/category";
 import RestaurantDetail from "../pages/client/restaurantDetail";
@@ -30,7 +30,7 @@ export const LoggedInRouter = () => {
   }
   return (
     <Router>
-      <Header email={data.me.email} />
+      <Header />
       <Routes>
         {data.me.role === "Client" && ClientRouter}
         <Route path="*" element={<NotFound />}></Route>

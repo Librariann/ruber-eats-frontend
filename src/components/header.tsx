@@ -2,14 +2,10 @@ import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
-import useMe from "../hooks/useMe";
+import { useMe } from "../hooks/useMe";
 import ruberLogo from "../images/eats_logo.svg";
 
-interface IHeaderProps {
-  email: string;
-}
-
-const Header: React.FC<IHeaderProps> = () => {
+const Header = () => {
   const { data } = useMe(); //useMe hooks에 정보들은 cache에 저장되어 cache에서 데이터를 불러온다
   return (
     <>

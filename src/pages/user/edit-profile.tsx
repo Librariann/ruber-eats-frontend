@@ -3,7 +3,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
 import Button from "../../components/button";
-import useMe from "../../hooks/useMe";
+import { useMe } from "../../hooks/useMe";
 import {
   EditProfileMutation,
   EditProfileMutationVariables,

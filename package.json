@@ -35,7 +35,7 @@
     "start": "npm run generate & npm run tailwind:build & react-scripts start",
     "generate": "graphql-codegen",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --verbose",
     "test:cov": "npm test -- --coverage --watchAll=false",
     "eject": "react-scripts eject"
   },

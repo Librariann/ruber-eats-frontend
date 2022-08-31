@@ -62,7 +62,8 @@
     "@graphql-codegen/typed-document-node": "^2.3.3",
     "@graphql-codegen/typescript": "^2.7.3",
     "@graphql-codegen/typescript-operations": "^2.5.3",
-    "@types/react-helmet": "^6.1.5"
+    "@types/react-helmet": "^6.1.5",
+    "mock-apollo-client": "^1.2.1"
   },
   "jest": {
     "collectCoverageFrom": [

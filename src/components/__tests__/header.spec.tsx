@@ -31,8 +31,8 @@ describe("<Header />", () => {
         </Router>
       </MockedProvider>
     );
-    await screen.findByText("test@gmail.com");
-    screen.getByText("Please verify your email");
+
+    await screen.findByText("Please verify your email");
   });
 
   it("renders without verify banner", async () => {
@@ -61,7 +61,8 @@ describe("<Header />", () => {
         </Router>
       </MockedProvider>
     );
-    await screen.findByText("test@gmail.com");
-    expect(screen.queryByText("Please verify your email")).toBeNull();
+    await waitFor(() => {
+      expect(screen.queryByText("Please verify your email")).toBeNull();
+    });
   });
 });

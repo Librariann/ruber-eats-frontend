@@ -39,7 +39,6 @@ const Login = () => {
     const {
       login: { ok, token },
     } = data;
-    console.log(data);
     if (ok && token) {
       localStorage.setItem(LOCALSTORAGE_TOKEN, token);
       authTokenVar(token);

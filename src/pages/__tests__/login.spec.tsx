@@ -1,18 +1,15 @@
 import { ApolloProvider } from "@apollo/client";
 import { createMockClient, MockApolloClient } from "mock-apollo-client";
-import {
-  findByText,
-  fireEvent,
-  render,
-  RenderResult,
-  screen,
-  waitFor,
-} from "@testing-library/react";
 import React from "react";
-import Login from "../login";
-import { BrowserRouter as Router } from "react-router-dom";
+import Login, { LOGIN_MUTATION } from "../login";
 import userEvent from "@testing-library/user-event";
-import { LOGIN_MUTATION } from "../login";
+import {
+  render,
+  waitFor,
+  RenderResult,
+  fireEvent,
+  screen,
+} from "../../test-utils";
 
 describe("<Login />", () => {
   let renderResult: RenderResult;
@@ -21,11 +18,9 @@ describe("<Login />", () => {
     await waitFor(async () => {
       mockedClient = createMockClient();
       renderResult = render(
-        <Router>
-          <ApolloProvider client={mockedClient}>
-            <Login />
-          </ApolloProvider>
-        </Router>
+        <ApolloProvider client={mockedClient}>
+          <Login />
+        </ApolloProvider>
       );
     });
   });
@@ -100,7 +95,6 @@ describe("<Login />", () => {
     그래도 테스트 해주는것이 좋음
     */
     expect(localStorage.setItem).toHaveBeenCalledWith("ruber-token", "test");
-
     await screen.findByText(/mutation-error/i);
   });
 });

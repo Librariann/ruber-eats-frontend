@@ -12,7 +12,7 @@ import ruberLogo from "../images/eats_logo.svg";
 import Button from "../components/button";
 import { Link, useNavigate } from "react-router-dom";
 
-const CREATE_ACCOUNT_MUTATION = gql`
+export const CREATE_ACCOUNT_MUTATION = gql`
   mutation createAccount($createAccountInput: CreateAccountInput!) {
     createAccount(input: $createAccountInput) {
       ok
@@ -45,6 +45,7 @@ const CreateAccount = () => {
       createAccount: { ok },
     } = data;
     if (ok) {
+      alert("Account Created! Log in now!");
       //redirect
       navigate("/");
     }
@@ -94,17 +95,16 @@ const CreateAccount = () => {
             placeholder="Email"
             className="input"
           />
+          {errors.email?.type === "pattern" && (
+            <FormError errorMessage={"Please enter a valid email"} />
+          )}
           {errors.email?.message && (
             <FormError errorMessage={errors.email?.message} />
-          )}
-          {errors.password?.type === "pattern" && (
-            <FormError errorMessage={"Please enter a valid email"} />
           )}
           <input type="password" name="dummyPwd" className="hidden" />
           <input
             {...register("password", {
               required: "Password is required",
-              minLength: 9,
             })}
             type="password"
             placeholder="Password"
@@ -113,9 +113,6 @@ const CreateAccount = () => {
           />
           {errors.password?.message && (
             <FormError errorMessage={errors.password?.message} />
-          )}
-          {errors.password?.type === "minLength" && (
-            <FormError errorMessage="Password must be more than 10 chars." />
           )}
           <select {...register("role", { required: "true" })} className="input">
             {Object.keys(UserRole).map((role, index) => (

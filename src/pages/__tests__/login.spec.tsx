@@ -1,6 +1,7 @@
 import { ApolloProvider } from "@apollo/client";
-import { createMockClient } from "mock-apollo-client";
+import { createMockClient, MockApolloClient } from "mock-apollo-client";
 import {
+  findByText,
   fireEvent,
   render,
   RenderResult,
@@ -11,13 +12,14 @@ import React from "react";
 import Login from "../login";
 import { BrowserRouter as Router } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
-import { act } from "react-dom/test-utils";
+import { LOGIN_MUTATION } from "../login";
 
 describe("<Login />", () => {
   let renderResult: RenderResult;
+  let mockedClient: MockApolloClient;
   beforeEach(async () => {
     await waitFor(async () => {
-      const mockedClient = createMockClient();
+      mockedClient = createMockClient();
       renderResult = render(
         <Router>
           <ApolloProvider client={mockedClient}>
@@ -36,18 +38,57 @@ describe("<Login />", () => {
   it("displays email validation erros", async () => {
     const email = screen.getByPlaceholderText(/Email/i);
 
+    //email vaildation error testing
     userEvent.type(email, "this@wont");
+    await screen.findByText(/please enter a valid email/i);
 
-    await waitFor(() => {
-      let errorMessage = screen.getByRole("alert");
-      expect(errorMessage).toHaveTextContent(/please enter a valid email/i);
-    });
-
+    //email input value clear testing
     userEvent.clear(email);
+    await screen.findByText(/email is required/i);
+  });
+
+  it("display password required errors", async () => {
+    const email = screen.getByPlaceholderText(/Email/i);
+    const submitBtn = screen.getByTestId("button");
+
+    userEvent.type(email, "this@wont.com");
+    fireEvent.click(submitBtn);
+
+    await screen.findByText(/password is required/i);
+  });
+
+  it("submits form and calls mutation", async () => {
+    const email = screen.getByPlaceholderText(/email/i);
+    const password = screen.getByPlaceholderText(/password/i);
+    const submitBtn = screen.getByTestId("button");
+
+    const formData = {
+      email: "real@test.com",
+      password: "tjdgus123",
+    };
+    const mockedMutationResponse = jest.fn().mockResolvedValue({
+      data: {
+        login: {
+          ok: true,
+          token: "test",
+          error: null,
+        },
+      },
+    });
+    mockedClient.setRequestHandler(LOGIN_MUTATION, mockedMutationResponse);
+
+    userEvent.type(email, formData.email);
+    userEvent.type(password, formData.password);
+    fireEvent.click(submitBtn);
 
     await waitFor(() => {
-      let errorMessage = screen.getByRole("alert");
-      expect(errorMessage).not.toHaveTextContent(/please enter a valid email/i);
+      expect(mockedMutationResponse).toHaveBeenCalledTimes(1);
+      expect(mockedMutationResponse).toHaveBeenCalledWith({
+        loginInput: {
+          email: formData.email,
+          password: formData.password,
+        },
+      });
     });
   });
 });

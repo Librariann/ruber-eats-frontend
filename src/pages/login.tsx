@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import { authTokenVar, isLoggedInVar } from "../apollo";
 import { LOCALSTORAGE_TOKEN } from "../constants";
 
-const LOGIN_MUTATION = gql`
+export const LOGIN_MUTATION = gql`
   mutation login($loginInput: LoginInput!) {
     login(input: $loginInput) {
       ok
@@ -39,6 +39,7 @@ const Login = () => {
     const {
       login: { ok, token },
     } = data;
+    console.log(data);
     if (ok && token) {
       localStorage.setItem(LOCALSTORAGE_TOKEN, token);
       authTokenVar(token);
@@ -101,7 +102,6 @@ const Login = () => {
           <input
             {...register("password", {
               required: "Password is required",
-              minLength: 9,
             })}
             type="password"
             placeholder="Password"
@@ -110,9 +110,6 @@ const Login = () => {
           />
           {errors.password?.message && (
             <FormError errorMessage={errors.password?.message} />
-          )}
-          {errors.password?.type === "pattern" && (
-            <FormError errorMessage={"Please enter a valid email"} />
           )}
           <Button canClick={isValid} loading={loading} actionText="Log In" />
           {loginMutationResult?.login.error && (

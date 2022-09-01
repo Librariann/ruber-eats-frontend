@@ -71,11 +71,13 @@ describe("<Login />", () => {
         login: {
           ok: true,
           token: "test",
-          error: null,
+          error: "mutation-error",
         },
       },
     });
     mockedClient.setRequestHandler(LOGIN_MUTATION, mockedMutationResponse);
+
+    jest.spyOn(Storage.prototype, "setItem");
 
     userEvent.type(email, formData.email);
     userEvent.type(password, formData.password);
@@ -90,5 +92,15 @@ describe("<Login />", () => {
         },
       });
     });
+
+    /*
+    implementation 이라서
+    spyOn으로 localStorage를 가져와 test한다해도 커버가 안되므로
+    coverage에서 봤을때 사라지지 않는것임
+    그래도 테스트 해주는것이 좋음
+    */
+    expect(localStorage.setItem).toHaveBeenCalledWith("ruber-token", "test");
+
+    await screen.findByText(/mutation-error/i);
   });
 });

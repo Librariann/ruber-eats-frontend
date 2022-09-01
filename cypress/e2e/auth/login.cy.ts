@@ -18,7 +18,7 @@ describe("Log In", () => {
     login.findByRole("alert").should("have.text", "Password is required");
   });
 
-  it("can fill out the form", () => {
+  it("can fill out the form and log in", () => {
     login.visit("/");
     login.findByPlaceholderText(/email/i).type("testadmin@gmail.com");
     login.findByPlaceholderText(/password/i).type("tjdgus123");
@@ -27,9 +27,5 @@ describe("Log In", () => {
       .should("not.have.class", "pointer-events-none")
       .click();
     login.window().its("localStorage.ruber-token").should("be.a", "string");
-  });
-
-  it("sign up", () => {
-    login.visit("/create-account");
   });
 });

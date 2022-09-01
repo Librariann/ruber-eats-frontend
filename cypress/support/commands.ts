@@ -36,3 +36,23 @@
 //   }
 // }
 import "@testing-library/cypress/add-commands";
+
+Cypress.Commands.add("assertLoggedIn", () => {
+  cy.window().its("localStorage.ruber-token").should("be.a", "string");
+});
+
+Cypress.Commands.add("assertLoggedOut", () => {
+  cy.window().its("localStorage.ruber-token").should("be.undefined");
+});
+
+Cypress.Commands.add("login", (email: string, password: string) => {
+  cy.visit("/");
+  cy.assertLoggedOut();
+  cy.title().should("eq", "Login | Ruber Eats");
+  cy.findByPlaceholderText(/email/i).type(email);
+  cy.findByPlaceholderText(/password/i).type(password);
+  cy.findByRole("button")
+    .should("not.have.class", "pointer-events-none")
+    .click();
+  cy.assertLoggedIn();
+});

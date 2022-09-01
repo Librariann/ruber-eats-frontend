@@ -19,13 +19,6 @@ describe("Log In", () => {
   });
 
   it("can fill out the form and log in", () => {
-    login.visit("/");
-    login.findByPlaceholderText(/email/i).type("testadmin@gmail.com");
-    login.findByPlaceholderText(/password/i).type("tjdgus123");
-    login
-      .findByRole("button")
-      .should("not.have.class", "pointer-events-none")
-      .click();
-    login.window().its("localStorage.ruber-token").should("be.a", "string");
+    login.login("testadmin@gmail.com", "tjdgus123");
   });
 });

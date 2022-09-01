@@ -39,10 +39,6 @@ describe("Create Account", () => {
     user.findByPlaceholderText(/password/i).type("121212");
     user.findByRole("button").click();
     user.wait(1000);
-    user.title().should("eq", "Login | Ruber Eats");
-    user.findByPlaceholderText(/email/i).type("nico@nomadcoders.co");
-    user.findByPlaceholderText(/password/i).type("121212");
-    user.findByRole("button").click();
-    user.window().its("localStorage.ruber-token").should("be.a", "string");
+    user.login("testadmin@gmail.com", "tjdgus123");
   });
 });

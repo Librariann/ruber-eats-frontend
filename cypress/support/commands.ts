@@ -56,3 +56,7 @@ Cypress.Commands.add("login", (email: string, password: string) => {
     .click();
   cy.assertLoggedIn();
 });
+
+Cypress.Commands.add("titleCheck", (title: string) => {
+  cy.title().should("eq", `${title} | Ruber Eats`);
+});

@@ -12,7 +12,7 @@ describe("Edit Profile", () => {
     user.intercept("POST", "http://localhost:4000/graphql", (req) => {
       if (req.body?.operationName === "editProfile") {
         // @ts-ignore
-        req.body?.variables?.input?.email = "tesetadmin@gmail.com";
+        req.body?.variables?.input?.email = "testadmin@gmail.com";
       }
       console.log(req.body);
     });

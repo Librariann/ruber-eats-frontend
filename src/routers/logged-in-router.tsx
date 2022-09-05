@@ -8,49 +8,27 @@ import RestaurantDetail from "../pages/client/restaurantDetail";
 import Restaurants from "../pages/client/restaurants";
 import Search from "../pages/client/search";
 import { AddRestaurants } from "../pages/owner/add-restaurants";
+import { MyRestaurant } from "../pages/owner/my-restaurant";
 import { MyRestaurants } from "../pages/owner/my-restaurants";
 import ConfirmEmail from "../pages/user/confirm-email";
 import EditProfile from "../pages/user/edit-profile";
 
 const clientRoutes = [
-  {
-    path: "/",
-    element: <Restaurants />,
-  },
-  {
-    path: "/search",
-    element: <Search />,
-  },
-  {
-    path: "/category/:slug",
-    element: <Category />,
-  },
-  {
-    path: "/restaurants/:id",
-    element: <RestaurantDetail />,
-  },
+  { path: "/", element: <Restaurants /> },
+  { path: "/search", element: <Search /> },
+  { path: "/category/:slug", element: <Category /> },
+  { path: "/restaurants/:id", element: <RestaurantDetail /> },
 ];
 
 const commonRoutes = [
-  {
-    path: "/confirm",
-    element: <ConfirmEmail />,
-  },
-  {
-    path: "/edit-profile",
-    element: <EditProfile />,
-  },
+  { path: "/confirm", element: <ConfirmEmail /> },
+  { path: "/edit-profile", element: <EditProfile /> },
 ];
 
 const restaurantRoutes = [
-  {
-    path: "/",
-    element: <MyRestaurants />,
-  },
-  {
-    path: "/add-restaurants",
-    element: <AddRestaurants />,
-  },
+  { path: "/", element: <MyRestaurants /> },
+  { path: "/add-restaurants", element: <AddRestaurants /> },
+  { path: "/restaurants/:id", element: <MyRestaurant /> },
 ];
 
 export const LoggedInRouter = () => {

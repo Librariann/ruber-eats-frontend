@@ -675,6 +675,10 @@ video {
   margin-top: 4rem;
 }
 
+.mt-52 {
+  margin-top: 13rem;
+}
+
 .mt-32 {
   margin-top: 8rem;
 }
@@ -683,8 +687,8 @@ video {
   margin-left: 1.25rem;
 }
 
-.mt-52 {
-  margin-top: 13rem;
+.mr-5 {
+  margin-right: 1.25rem;
 }
 
 .mb-1 {

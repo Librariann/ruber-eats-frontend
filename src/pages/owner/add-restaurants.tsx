@@ -1,19 +1,26 @@
-import { gql, useMutation } from "@apollo/client";
+import { gql, useApolloClient, useMutation } from "@apollo/client";
 import {
   CreateRestaurantMutation,
   CreateRestaurantMutationVariables,
 } from "../../__api__/types";
 import React, { useState } from "react";
-import { useForm, useFormState } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import Button from "../../components/button";
 import { Helmet } from "react-helmet";
 import FormError from "../../components/form-error";
+import { MY_RESTAURANTS_QUERY } from "./my-restaurants";
+import { useNavigate } from "react-router-dom";
+
+/**
+ * 음식점 생성후 백엔드에서 restaurantId를 받아 프론트엔드에서 fake한다
+ */
 
 const CREATE_RESTAURANT_MUTATION = gql`
   mutation createRestaurant($input: CreateRestaurantInput!) {
     createRestaurants(input: $input) {
       ok
       error
+      restaurantId
     }
   }
 `;
@@ -26,12 +33,42 @@ interface IFormProps {
 }
 
 export const AddRestaurants = () => {
+  const client = useApolloClient();
+  const navigate = useNavigate();
+  const [imageUrl, setImageUrl] = useState();
   const onCompleted = (data: CreateRestaurantMutation) => {
     const {
-      createRestaurants: { ok, error },
+      createRestaurants: { ok, restaurantId },
     } = data;
     if (ok) {
+      const { name, categoryName, address, file } = getValues();
       setUploading(false);
+      const queryResult = client.readQuery({ query: MY_RESTAURANTS_QUERY });
+      console.log(queryResult);
+      client.writeQuery({
+        query: MY_RESTAURANTS_QUERY,
+        data: {
+          myRestaurants: {
+            ...queryResult?.myRestaurants,
+            restaurants: [
+              {
+                address,
+                category: {
+                  name: categoryName,
+                  __typename: "Category",
+                },
+                coverImage: imageUrl,
+                id: restaurantId,
+                isPromoted: false,
+                name,
+                __typename: "Restaurant",
+              },
+              ...queryResult?.myRestaurants.restaurants,
+            ],
+          },
+        },
+      });
+      navigate("/");
     }
   };
 
@@ -40,6 +77,8 @@ export const AddRestaurants = () => {
     CreateRestaurantMutationVariables
   >(CREATE_RESTAURANT_MUTATION, {
     onCompleted,
+    //refetchQuery의 작업은 mutation 작업이 끝나면 자동으로 일어난다
+    // refetchQueries: [{ query: MY_RESTAURANTS_QUERY }],
   });
 
   const {
@@ -64,6 +103,7 @@ export const AddRestaurants = () => {
           body: formBody,
         })
       ).json();
+      setImageUrl(coverImage);
       createRestaurantMutation({
         variables: {
           input: {

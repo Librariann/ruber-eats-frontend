@@ -110,6 +110,7 @@ export type CreateRestaurantOuput = {
   __typename?: 'CreateRestaurantOuput';
   error?: Maybe<Scalars['String']>;
   ok: Scalars['Boolean'];
+  restaurantId: Scalars['Int'];
 };
 
 export type DeleteDishInput = {
@@ -337,6 +338,17 @@ export type MutationVerifyEmailArgs = {
   input: VerifyEmailInput;
 };
 
+export type MyRestaurantInput = {
+  id: Scalars['Float'];
+};
+
+export type MyRestaurantOutput = {
+  __typename?: 'MyRestaurantOutput';
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+  restaurant?: Maybe<Restaurant>;
+};
+
 export type MyRestaurantsOutput = {
   __typename?: 'MyRestaurantsOutput';
   error?: Maybe<Scalars['String']>;
@@ -405,6 +417,7 @@ export type Query = {
   __typename?: 'Query';
   allCategories: AllCategoriesOutput;
   category: CategoryOutput;
+  findOneMyRestaurant: MyRestaurantOutput;
   getOrder: GetOrderOutput;
   getOrders: GetOrdersOutput;
   getPayments: GetPaymentsOutput;
@@ -419,6 +432,11 @@ export type Query = {
 
 export type QueryCategoryArgs = {
   input: CategoryInput;
+};
+
+
+export type QueryFindOneMyRestaurantArgs = {
+  input: MyRestaurantInput;
 };
 
 
@@ -621,7 +639,14 @@ export type CreateRestaurantMutationVariables = Exact<{
 }>;
 
 
-export type CreateRestaurantMutation = { __typename?: 'Mutation', createRestaurants: { __typename?: 'CreateRestaurantOuput', ok: boolean, error?: string | null } };
+export type CreateRestaurantMutation = { __typename?: 'Mutation', createRestaurants: { __typename?: 'CreateRestaurantOuput', ok: boolean, error?: string | null, restaurantId: number } };
+
+export type MyRestaurantQueryVariables = Exact<{
+  input: MyRestaurantInput;
+}>;
+
+
+export type MyRestaurantQuery = { __typename?: 'Query', findOneMyRestaurant: { __typename?: 'MyRestaurantOutput', ok: boolean, error?: string | null, restaurant?: { __typename?: 'Restaurant', id: number, name: string, coverImage: string, address: string, isPromoted: boolean, category?: { __typename?: 'Category', name: string } | null } | null } };
 
 export type MyRestaurantsQueryVariables = Exact<{ [key: string]: never; }>;
 

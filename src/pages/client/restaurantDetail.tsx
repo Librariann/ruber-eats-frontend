@@ -17,9 +17,9 @@ const RESTAURANT_QUERY = gql`
   ${RESTAURANT_FRAGMENT}
 `;
 
-interface IRestaurantParams {
+type IRestaurantParams = {
   id: string;
-}
+};
 
 const RestaurantDetail = () => {
   const { id } = useParams() as unknown as IRestaurantParams;

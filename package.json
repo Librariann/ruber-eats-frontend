@@ -16,6 +16,7 @@
     "@types/node": "^16.11.49",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
+    "@types/react-router-dom": "^5.3.3",
     "apollo": "^2.34.0",
     "autoprefixer": "^10.4.8",
     "cypress": "^10.7.0",

@@ -7,6 +7,7 @@ import Category from "../pages/client/category";
 import RestaurantDetail from "../pages/client/restaurantDetail";
 import Restaurants from "../pages/client/restaurants";
 import Search from "../pages/client/search";
+import { AddRestaurants } from "../pages/owner/add-restaurants";
 import { MyRestaurants } from "../pages/owner/my-restaurants";
 import ConfirmEmail from "../pages/user/confirm-email";
 import EditProfile from "../pages/user/edit-profile";
@@ -45,6 +46,10 @@ const restaurantRoutes = [
   {
     path: "/",
     element: <MyRestaurants />,
+  },
+  {
+    path: "/add-restaurants",
+    element: <AddRestaurants />,
   },
 ];
 

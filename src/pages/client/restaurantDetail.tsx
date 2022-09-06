@@ -1,7 +1,8 @@
 import { gql, useQuery } from "@apollo/client";
 import React from "react";
 import { useParams } from "react-router-dom";
-import { RESTAURANT_FRAGMENT } from "../../fragments";
+import { Dish } from "../../components/dish";
+import { DISH_FRAGMENT, RESTAURANT_FRAGMENT } from "../../fragments";
 import { RestaurantQuery, RestaurantQueryVariables } from "../../__api__/types";
 
 const RESTAURANT_QUERY = gql`
@@ -11,10 +12,14 @@ const RESTAURANT_QUERY = gql`
       error
       restaurant {
         ...RestaurantParts
+        menu {
+          ...DishParts
+        }
       }
     }
   }
   ${RESTAURANT_FRAGMENT}
+  ${DISH_FRAGMENT}
 `;
 
 type IRestaurantParams = {
@@ -33,7 +38,6 @@ const RestaurantDetail = () => {
       },
     }
   );
-  console.log(data);
   return (
     <div>
       <div
@@ -51,6 +55,18 @@ const RestaurantDetail = () => {
             {data?.restaurant.restaurant?.address}
           </h6>
         </div>
+      </div>
+      <div className="ml-5 mr-5 container grid mt-16 md:grid-cols-3 gap-x-5 gap-y-10">
+        {data?.restaurant.restaurant?.menu.map((dish, index) => (
+          <Dish
+            key={index}
+            name={dish.name}
+            description={dish.description}
+            price={dish.price}
+            isCustomer={true}
+            options={dish.options}
+          />
+        ))}
       </div>
     </div>
   );

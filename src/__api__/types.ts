@@ -87,6 +87,7 @@ export type CreateOrderOutput = {
   __typename?: 'CreateOrderOutput';
   error?: Maybe<Scalars['String']>;
   ok: Scalars['Boolean'];
+  orderId?: Maybe<Scalars['Int']>;
 };
 
 export type CreatePaymentInput = {
@@ -626,7 +627,7 @@ export type CreateOrderMutationVariables = Exact<{
 }>;
 
 
-export type CreateOrderMutation = { __typename?: 'Mutation', createOrder: { __typename?: 'CreateOrderOutput', ok: boolean, error?: string | null } };
+export type CreateOrderMutation = { __typename?: 'Mutation', createOrder: { __typename?: 'CreateOrderOutput', ok: boolean, error?: string | null, orderId?: number | null } };
 
 export type RestaurantsPageQueryVariables = Exact<{
   input: RestaurantsInput;

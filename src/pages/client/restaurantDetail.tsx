@@ -166,6 +166,10 @@ const RestaurantDetail = () => {
     onCompleted,
   });
   const triggerConfirmOrder = () => {
+    //보안 및 다중클릭 방지
+    if (placingOrder) {
+      return;
+    }
     if (orderItems.length === 0) {
       alert("Can't place empty order");
       return;

@@ -721,3 +721,10 @@ export type OrderUpdatesSubscriptionVariables = Exact<{
 
 
 export type OrderUpdatesSubscription = { __typename?: 'Subscription', orderUpdates: { __typename?: 'Order', id: number, status: OrderStatus, total?: number | null, driver?: { __typename?: 'User', email: string } | null, customer?: { __typename?: 'User', email: string } | null, restaurant?: { __typename?: 'Restaurant', name: string } | null } };
+
+export type EditOrderMutationVariables = Exact<{
+  input: EditOrderInput;
+}>;
+
+
+export type EditOrderMutation = { __typename?: 'Mutation', editOrder: { __typename?: 'EditOrderOutput', ok: boolean, error?: string | null } };

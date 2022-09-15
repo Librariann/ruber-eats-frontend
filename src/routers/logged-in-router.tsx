@@ -7,6 +7,7 @@ import Category from "../pages/client/category";
 import RestaurantDetail from "../pages/client/restaurantDetail";
 import Restaurants from "../pages/client/restaurants";
 import Search from "../pages/client/search";
+import { DashBoard } from "../pages/driver/dashboard";
 import { AddDish } from "../pages/owner/add-dish";
 import { AddRestaurants } from "../pages/owner/add-restaurants";
 import { MyRestaurant } from "../pages/owner/my-restaurant";
@@ -14,6 +15,7 @@ import { MyRestaurants } from "../pages/owner/my-restaurants";
 import ConfirmEmail from "../pages/user/confirm-email";
 import EditProfile from "../pages/user/edit-profile";
 import { Order } from "../pages/user/order";
+import { UserRole } from "../__api__/types";
 
 const clientRoutes = [
   { path: "/", element: <Restaurants /> },
@@ -35,6 +37,8 @@ const restaurantRoutes = [
   { path: "/restaurants/:restaurantId/add-dish", element: <AddDish /> },
 ];
 
+const driverRoutes = [{ path: "/", element: <DashBoard /> }];
+
 export const LoggedInRouter = () => {
   const { data, loading, error } = useMe();
   if (!data || loading || error) {
@@ -48,12 +52,16 @@ export const LoggedInRouter = () => {
     <Router>
       <Header />
       <Routes>
-        {data.me.role === "Client" &&
+        {data.me.role === UserRole.Client &&
           clientRoutes.map((route, index) => (
             <Route key={index} path={route.path} element={route.element} />
           ))}
-        {data.me.role === "Owner" &&
+        {data.me.role === UserRole.Owner &&
           restaurantRoutes.map((route, index) => (
+            <Route key={index} path={route.path} element={route.element} />
+          ))}
+        {data.me.role === UserRole.Delivery &&
+          driverRoutes.map((route, index) => (
             <Route key={index} path={route.path} element={route.element} />
           ))}
         {commonRoutes.map((route, index) => (

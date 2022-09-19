@@ -70,6 +70,7 @@
     "@graphql-codegen/typescript-operations": "^2.5.3",
     "@testing-library/cypress": "^8.0.3",
     "@testing-library/dom": "^8.17.1",
+    "@types/googlemaps": "^3.43.3",
     "@types/react-helmet": "^6.1.5",
     "mock-apollo-client": "^1.2.1"
   },

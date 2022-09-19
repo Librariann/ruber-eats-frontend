@@ -37,6 +37,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "tailwind:prodbuild": "NODE_ENV=production npm run tailwind:build",
     "tailwind:build": "tailwind build ./src/styles/tailwind.css -o ./src/styles/styles.css",
     "start": "npm run generate & npm run tailwind:build & react-scripts start",
     "generate": "graphql-codegen",

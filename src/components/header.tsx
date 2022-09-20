@@ -16,10 +16,12 @@ const Header = () => {
       )}
       <header className="py-4">
         <div className="w-full px-5 max-w-screen-2xl mx-auto flex justify-between items-center">
-          <img src={ruberLogo} className="w-36" alt="Ruber Eats" />
+          <span className="w-36 text-3xl">
+            Ruber <span className="text-lime-500">Eats</span>
+          </span>
           <span className="text-xs">
             <Link to="/edit-profile">
-              <FontAwesomeIcon icon={faUser} className="text-xl" />
+              <FontAwesomeIcon icon={faUser} className="text-xl mr-1 -my-1" />
               {data?.me.email}
             </Link>
           </span>

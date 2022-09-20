@@ -41,7 +41,7 @@ export const MyRestaurants = () => {
             <h4 className="text-xl mb-5">You have no restaurants.</h4>
             <Link
               className="text-lime-600 hover:underline"
-              to="/add-restaurant"
+              to="/add-restaurants"
             >
               Create one &rarr;
             </Link>

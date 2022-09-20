@@ -76,7 +76,9 @@ const CreateAccount = () => {
         <title>Create Account | Ruber Eats</title>
       </Helmet>
       <div className="w-full max-w-screen-sm flex flex-col px-5 items-center">
-        <img src={ruberLogo} className="w-52 mb-10" />
+        <span className=" w-56 mb-10 text-5xl">
+          Ruber <span className="text-lime-500">Eats</span>
+        </span>
         <h4 className="w-full font-medium text-left text-3xl mb-5">
           Let's get started
         </h4>

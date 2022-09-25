@@ -38,12 +38,12 @@ export const MyRestaurants = () => {
         {data?.myRestaurants.ok &&
         data.myRestaurants.restaurants.length === 0 ? (
           <>
-            <h4 className="text-xl mb-5">You have no restaurants.</h4>
+            <h4 className="text-xl mb-5">등록된 음식점이 없습니다</h4>
             <Link
               className="text-lime-600 hover:underline"
               to="/add-restaurants"
             >
-              Create one &rarr;
+              생성하기 &rarr;
             </Link>
           </>
         ) : (
@@ -61,7 +61,7 @@ export const MyRestaurants = () => {
               className="text-lime-600 hover:underline"
               to="/add-restaurants"
             >
-              Create one &rarr;
+              생성하기 &rarr;
             </Link>
           </div>
         )}

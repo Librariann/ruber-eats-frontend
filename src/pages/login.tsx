@@ -76,7 +76,7 @@ const Login = () => {
           Ruber <span className="text-lime-500">Eats</span>
         </span>
         <h4 className="w-full font-medium text-left text-3xl mb-5">
-          Welcome back
+          환영합니다!
         </h4>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -118,9 +118,9 @@ const Login = () => {
           )}
         </form>
         <div>
-          New to Ruber?{" "}
+          Ruber Eats는 처음이세요?{" "}
           <Link to="/create-account" className="text-lime-600 hover:underline">
-            Create an Account
+            계정생성
           </Link>
         </div>
       </div>

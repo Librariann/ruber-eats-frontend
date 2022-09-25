@@ -130,14 +130,14 @@ export const AddRestaurants = () => {
         <input
           className="input"
           type="text"
-          {...register("address", { required: "address is required" })}
-          placeholder="address"
+          {...register("name", { required: "name is required" })}
+          placeholder="음식점명"
         />
         <input
           className="input"
           type="text"
-          {...register("name", { required: "name is required" })}
-          placeholder="name"
+          {...register("address", { required: "address is required" })}
+          placeholder="주소"
         />
         <input
           className="input"
@@ -145,7 +145,7 @@ export const AddRestaurants = () => {
           {...register("categoryName", {
             required: "categoryName is required",
           })}
-          placeholder="categoryName"
+          placeholder="카테고리명"
         />
         <div>
           <input
@@ -157,7 +157,7 @@ export const AddRestaurants = () => {
         <Button
           loading={uploading}
           canClick={isValid}
-          actionText="Create Restaurant"
+          actionText="음식점 생성"
         />
         {data?.createRestaurants?.error && (
           <FormError errorMessage={data.createRestaurants.error} />

@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Restaurant from "../../components/restaurant";
 import { CATEGORY_FRAGMENT, RESTAURANT_FRAGMENT } from "../../fragments";
+import NoImage from "../../images/no_image1.png";
 import {
   RestaurantsPageQuery,
   RestaurantsPageQueryVariables,
@@ -83,10 +84,14 @@ const Restaurants = () => {
           <div className="flex justify-around max-w-sm mx-auto">
             {data?.allCategories.categories?.map((category) => (
               <Link key={category.id} to={`/category/${category.slug}`}>
-                <div className="flex flex-col group items-center cursor-pointer">
+                <div className="flex flex-col group items-center cursor-pointer mr-3">
                   <div
                     className="w-16 h-16 bg-cover group-hover:bg-gray-200 rounded-full"
-                    style={{ backgroundImage: `url(${category.coverImage})` }}
+                    style={{
+                      backgroundImage: `url(${
+                        category.coverImage ? category.coverImage : NoImage
+                      })`,
+                    }}
                   ></div>
                   <span className="mt-1 text-sm text-center font-bold">
                     {category.name}

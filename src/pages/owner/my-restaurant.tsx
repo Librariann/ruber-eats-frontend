@@ -103,14 +103,14 @@ export const MyRestaurant = () => {
           to={`/restaurants/${id}/add-dish`}
           className=" mr-8 text-white bg-gray-800 py-3 px-10"
         >
-          Add Dish &rarr;
+          음식추가 &rarr;
         </Link>
-        <Link to={``} className=" text-white bg-lime-700 py-3 px-10">
-          Buy Promotion &rarr;
-        </Link>
+        {/* <Link to={``} className=" text-white bg-lime-700 py-3 px-10">
+          프로모션 구매 &rarr;
+        </Link> */}
         <div className="mt-10">
           {data?.findOneMyRestaurant.restaurant?.menu.length === 0 ? (
-            <h4 className="text-xl mb-5">Please upload a dish!</h4>
+            <h4 className="text-xl mb-5">음식을 업로드 해주세요!</h4>
           ) : (
             <div className="grid mt-16 md:grid-cols-3 gap-x-5 gap-y-10">
               {data?.findOneMyRestaurant.restaurant?.menu.map((dish, index) => (

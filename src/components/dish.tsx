@@ -54,7 +54,7 @@ export const Dish: React.FC<IDishProps> = ({
               }`}
               onClick={onClick}
             >
-              {isSelected ? "Remove" : "Add"}
+              {isSelected ? "삭제" : "추가"}
             </button>
           )}
         </h3>
@@ -63,7 +63,7 @@ export const Dish: React.FC<IDishProps> = ({
       <span>${price}</span>
       {isCustomer && options && options.length !== 0 && (
         <div>
-          <h5 className="mt-8 font-medium">Dish Options:</h5>
+          <h5 className="mt-8 font-medium">음식 추가옵션:</h5>
           <div className="grid gap-2  justify-start">{dishOptions}</div>
         </div>
       )}

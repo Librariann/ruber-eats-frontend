@@ -90,7 +90,7 @@ export const AddDish = () => {
       <Helmet>
         <title>Add Dish | Nuber Eats</title>
       </Helmet>
-      <h4 className="font-semibold text-2xl mb-3">Add Dish</h4>
+      <h4 className="font-semibold text-2xl mb-3">음식 추가</h4>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="grid max-w-screen-sm gap-3 mt-5 w-full mb-5"
@@ -98,20 +98,20 @@ export const AddDish = () => {
         <input
           className="input"
           type="text"
-          placeholder="Name"
+          placeholder="음식명"
           {...register("name", { required: "Name is required." })}
         />
         <input
           className="input"
           type="number"
           min={0}
-          placeholder="Price"
+          placeholder="가격"
           {...register("price", { required: "Price is required." })}
         />
         <input
           className="input"
           type="text"
-          placeholder="Description"
+          placeholder="설명"
           {...register("description", {
             required: "Description is required.",
           })}
@@ -119,12 +119,12 @@ export const AddDish = () => {
 
         {/* Dish Options */}
         <div className="my-10">
-          <h4 className="font-medium  mb-3 text-lg">Dish Options</h4>
+          <h4 className="font-medium  mb-3 text-lg">음식 추가옵션</h4>
           <span
             onClick={onAddOptionClick}
             className=" cursor-pointer text-white bg-gray-900 py-1 px-2 mt-5 bg-"
           >
-            Add Dish Option
+            Add Option
           </span>
           {optionsNumber.length !== 0 &&
             optionsNumber.map((id) => (
@@ -154,7 +154,7 @@ export const AddDish = () => {
         <Button
           loading={loading}
           canClick={formState.isValid}
-          actionText="Create Dish"
+          actionText="음식 생성"
         />
       </form>
     </div>

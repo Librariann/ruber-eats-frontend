@@ -1,6 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import React from "react";
 import { useParams } from "react-router-dom";
+import Restaurant from "../../components/restaurant";
 import { CATEGORY_FRAGMENT, RESTAURANT_FRAGMENT } from "../../fragments";
 import { CategoryQuery, CategoryQueryVariables } from "../../__api__/types";
 
@@ -44,7 +45,19 @@ const Category = () => {
 
   console.log(data);
 
-  return <h1>Category</h1>;
+  return (
+    <div className="mx-5 mt-16 grid md:grid-cols-3 gap-x-5 gap-y-10">
+      {data?.category.restaurants?.map((restaurant, index) => (
+        <Restaurant
+          key={restaurant.id}
+          id={restaurant.id + ""}
+          coverImage={restaurant.coverImage}
+          name={restaurant.name}
+          categoryName={restaurant.category?.name}
+        />
+      ))}
+    </div>
+  );
 };
 
 export default Category;

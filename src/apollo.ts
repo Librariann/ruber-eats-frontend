@@ -9,12 +9,15 @@ import { setContext } from "@apollo/client/link/context";
 import { WebSocketLink } from "@apollo/client/link/ws";
 import { getMainDefinition } from "@apollo/client/utilities";
 import { LOCALSTORAGE_TOKEN } from "./constants";
+import { DARK_MODE_ON_OFF } from "./constants";
 
 const token = localStorage.getItem(LOCALSTORAGE_TOKEN);
+const darkMode = localStorage.getItem(DARK_MODE_ON_OFF);
 export const isLoggedInVar = makeVar(Boolean(token));
 export const authTokenVar = makeVar(token);
+export const isDarkModeVar = makeVar(Boolean(darkMode));
 
-const wsLink = new WebSocketLink({
+export const wsLink = new WebSocketLink({
   uri:
     process.env.NODE_ENV === "production"
       ? "wss://ruber-eats-backend.herokuapp.com/graphql"

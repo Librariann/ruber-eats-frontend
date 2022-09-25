@@ -1,6 +1,7 @@
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { gql, useMutation, useQuery, useReactiveVar } from "@apollo/client";
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { isDarkModeVar } from "../../apollo";
 import { Dish } from "../../components/dish";
 import { DishOption } from "../../components/dish-option";
 import { DISH_FRAGMENT, RESTAURANT_FRAGMENT } from "../../fragments";
@@ -44,6 +45,7 @@ type IRestaurantParams = {
 };
 
 const RestaurantDetail = () => {
+  const isDarkMode = useReactiveVar(isDarkModeVar);
   const { id } = useParams() as unknown as IRestaurantParams;
   const { loading, data } = useQuery<RestaurantQuery, RestaurantQueryVariables>(
     RESTAURANT_QUERY,
@@ -195,7 +197,11 @@ const RestaurantDetail = () => {
           backgroundImage: `url(${data?.restaurant.restaurant?.coverImage})`,
         }}
       >
-        <div className="bg-white md: w-96 py-8 pl-20">
+        <div
+          className={`${
+            isDarkMode ? "bg-slate-900" : "bg-white"
+          } md: w-96 py-8 pl-20`}
+        >
           <h4 className="text-4xl mb-3">{data?.restaurant.restaurant?.name}</h4>
           <h5 className="text-sm font-light mb-2">
             {data?.restaurant.restaurant?.category?.name}

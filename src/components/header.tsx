@@ -4,8 +4,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useMe } from "../hooks/useMe";
 
-const Header = () => {
+interface IheaderProps {
+  darkModeOnOff: () => void;
+}
+
+const Header: React.FC<IheaderProps> = ({ darkModeOnOff }) => {
   const { data } = useMe(); //useMe hooks에 정보들은 cache에 저장되어 cache에서 데이터를 불러온다
+
   return (
     <>
       {/* {!data?.me.verified && (
@@ -20,7 +25,13 @@ const Header = () => {
               Ruber <span className="text-lime-500">Eats</span>
             </span>
           </Link>
+
           <span className="text-xs">
+            <button className="mr-4" onClick={darkModeOnOff}>
+              <span>light</span>
+              <span>dark</span>
+            </button>
+
             <Link to="/edit-profile">
               <FontAwesomeIcon icon={faUser} className="text-xl mr-1 -my-1" />
               {data?.me.email}

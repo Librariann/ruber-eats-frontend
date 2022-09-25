@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "../components/header";
 import { useMe } from "../hooks/useMe";
@@ -16,6 +16,9 @@ import ConfirmEmail from "../pages/user/confirm-email";
 import EditProfile from "../pages/user/edit-profile";
 import { Order } from "../pages/user/order";
 import { UserRole } from "../__api__/types";
+import { isDarkModeVar } from "../apollo";
+import { DARK_MODE_ON_OFF } from "../constants";
+import { useReactiveVar } from "@apollo/client";
 
 const clientRoutes = [
   { path: "/", element: <Restaurants /> },
@@ -41,6 +44,8 @@ const driverRoutes = [{ path: "/", element: <DashBoard /> }];
 
 export const LoggedInRouter = () => {
   const { data, loading, error } = useMe();
+  const isDarkMode = useReactiveVar(isDarkModeVar);
+
   if (!data || loading || error) {
     return (
       <div className="h-screen flex justify-center items-center">
@@ -48,29 +53,41 @@ export const LoggedInRouter = () => {
       </div>
     );
   }
-  return (
-    <Router>
-      <Header />
-      <Routes>
-        {data.me.role === UserRole.Client &&
-          clientRoutes.map((route, index) => (
-            <Route key={index} path={route.path} element={route.element} />
-          ))}
-        {data.me.role === UserRole.Owner &&
-          restaurantRoutes.map((route, index) => (
-            <Route key={index} path={route.path} element={route.element} />
-          ))}
-        {data.me.role === UserRole.Delivery &&
-          driverRoutes.map((route, index) => (
-            <Route key={index} path={route.path} element={route.element} />
-          ))}
-        {commonRoutes.map((route, index) => (
-          <Route key={index} path={route.path} element={route.element} />
-        ))}
 
-        <Route path="*" element={<NotFound />}></Route>
-        {/* <Route path="*" element={<Navigate to="/" replace />}></Route> */}
-      </Routes>
-    </Router>
+  const darkModeOnOff = () => {
+    console.log("test");
+    if (!isDarkMode) {
+      localStorage.setItem(DARK_MODE_ON_OFF, "true");
+    } else {
+      localStorage.removeItem(DARK_MODE_ON_OFF);
+    }
+    isDarkModeVar(!isDarkMode);
+  };
+  return (
+    <div className={`${isDarkMode ? "dark" : "light"}`}>
+      <Router>
+        <Header darkModeOnOff={darkModeOnOff} />
+        <Routes>
+          {data.me.role === UserRole.Client &&
+            clientRoutes.map((route, index) => (
+              <Route key={index} path={route.path} element={route.element} />
+            ))}
+          {data.me.role === UserRole.Owner &&
+            restaurantRoutes.map((route, index) => (
+              <Route key={index} path={route.path} element={route.element} />
+            ))}
+          {data.me.role === UserRole.Delivery &&
+            driverRoutes.map((route, index) => (
+              <Route key={index} path={route.path} element={route.element} />
+            ))}
+          {commonRoutes.map((route, index) => (
+            <Route key={index} path={route.path} element={route.element} />
+          ))}
+
+          <Route path="*" element={<NotFound />}></Route>
+          {/* <Route path="*" element={<Navigate to="/" replace />}></Route> */}
+        </Routes>
+      </Router>
+    </div>
   );
 };

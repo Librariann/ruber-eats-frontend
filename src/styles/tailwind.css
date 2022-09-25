@@ -16,4 +16,12 @@
   @apply text-lg font-medium focus:outline-none text-white py-4 transition-colors bg-lime-500 hover:bg-lime-700;
 }
 
+.light {
+  @apply bg-white text-black transition-colors delay-75;
+}
+
+.dark {
+  @apply bg-slate-900 text-white transition-colors delay-75;
+}
+
 @tailwind utilities;

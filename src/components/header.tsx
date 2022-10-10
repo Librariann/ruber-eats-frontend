@@ -1,3 +1,4 @@
+import { useReactiveVar } from "@apollo/client";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
@@ -6,9 +7,10 @@ import { useMe } from "../hooks/useMe";
 
 interface IheaderProps {
   darkModeOnOff: () => void;
+  isDarkMode: boolean;
 }
 
-const Header: React.FC<IheaderProps> = ({ darkModeOnOff }) => {
+const Header: React.FC<IheaderProps> = ({ darkModeOnOff, isDarkMode }) => {
   const { data } = useMe(); //useMe hooks에 정보들은 cache에 저장되어 cache에서 데이터를 불러온다
 
   return (
@@ -28,8 +30,7 @@ const Header: React.FC<IheaderProps> = ({ darkModeOnOff }) => {
 
           <span className="text-xs">
             <button className="mr-4" onClick={darkModeOnOff}>
-              <span>light</span>
-              <span>dark</span>
+              {isDarkMode ? <span>dark</span> : <span>light</span>}
             </button>
 
             <Link to="/edit-profile">

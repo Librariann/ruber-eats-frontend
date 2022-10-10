@@ -55,7 +55,6 @@ export const LoggedInRouter = () => {
   }
 
   const darkModeOnOff = () => {
-    console.log("test");
     if (!isDarkMode) {
       localStorage.setItem(DARK_MODE_ON_OFF, "true");
     } else {
@@ -66,7 +65,7 @@ export const LoggedInRouter = () => {
   return (
     <div className={`${isDarkMode ? "dark" : "light"}`}>
       <Router>
-        <Header darkModeOnOff={darkModeOnOff} />
+        <Header darkModeOnOff={darkModeOnOff} isDarkMode={isDarkMode} />
         <Routes>
           {data.me.role === UserRole.Client &&
             clientRoutes.map((route, index) => (

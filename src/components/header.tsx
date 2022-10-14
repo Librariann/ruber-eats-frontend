@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 import { useMe } from "../hooks/useMe";
 
 interface IheaderProps {
-  darkModeOnOff: () => void;
-  isDarkMode: boolean;
+  darkModeOnOff?: () => void;
+  isDarkMode?: boolean;
 }
 
 const Header: React.FC<IheaderProps> = ({ darkModeOnOff, isDarkMode }) => {

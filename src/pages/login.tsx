@@ -4,7 +4,6 @@ import Helmet from "react-helmet";
 import { useForm } from "react-hook-form";
 import FormError from "../components/form-error";
 import { LoginMutation, LoginMutationVariables } from "../__api__/types";
-import ruberLogo from "../images/eats_logo.svg";
 import Button from "../components/button";
 import { Link } from "react-router-dom";
 import { authTokenVar, isLoggedInVar } from "../apollo";
